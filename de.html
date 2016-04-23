@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style>
+	* {
+		box-sizing: border-box;
+	}
+	.per-list {
+		line-height: 1.5;
+		display: flex;
+		padding: 2px 15px;
+	}
+	.active {
+    background-color: #F5F5DC;
+	}
+	.name {
+		padding: 5px 15px;
+		flex: 16;
+	}
+
+	.play,
+	.download {
+		padding: 5px 15px;
+		border-radius: 4px;
+		border: 1px solid purple;
+		flex: 2;
+		text-align: center;
+	}
+	.ph {
+		flex: 2;
+		padding: 5px 15px;
+		border: 1px solid purple;
+		visibility: hidden;
+	}
+	.download {
+		margin-left: 2rem;
+	}
+	</style>
+</head>
+<body>
+	<div id="video"></div>
+	<div id="list"></div>
+	<script src="./jwplayer.js"></script>
+	<script>jwplayer.key="Yyx8YeYwoqQqrbKmUpla5nkSW9WPICgSaCOaYg==";</script>
+	<script>
+	window.downloadFile = function (sUrl) {
+
+	    //iOS devices do not support downloading. We have to inform user about this.
+	    if (/(iP)/g.test(navigator.userAgent)) {
+	        alert('Your device does not support files downloading. Please try again in desktop browser.');
+	        return false;
+	    }
+
+	    //If in Chrome or Safari - download via virtual link click
+	    if (window.downloadFile.isChrome || window.downloadFile.isSafari) {
+	        //Creating new link node.
+	        var link = document.createElement('a');
+	        link.href = sUrl;
+
+	        if (link.download !== undefined) {
+	            //Set HTML5 download attribute. This will prevent file from opening if supported.
+	            var fileName = sUrl.substring(sUrl.lastIndexOf('/') + 1, sUrl.length);
+	            link.download = fileName;
+	        }
+
+	        //Dispatching click event.
+	        if (document.createEvent) {
+	            var e = document.createEvent('MouseEvents');
+	            e.initEvent('click', true, true);
+	            link.dispatchEvent(e);
+	            return true;
+	        }
+	    }
+
+	    // Force file download (whether supported by server).
+	    if (sUrl.indexOf('?') === -1) {
+	        sUrl += '?download';
+	    }
+
+	    window.open(sUrl, '_self');
+	    return true;
+	}
+
+	window.downloadFile.isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+	window.downloadFile.isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+	</script>
+	<script>
+	var urlsArr = [
+	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E01.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:true
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E02.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:true
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E03.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:true
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E04.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:true
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E05.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:true
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E06.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:true
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E07.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E08.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E09.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E10.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E11.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E12.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E13.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E14.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E15.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E16.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E17.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E18.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E19.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E20.720p.HDTV.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E21.720p.Web-DL.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	},	{
+		url: "http://7xta7z.com2.z0.glb.clouddn.com/Scandal.2012.Season.02.S02.HDTV.720p.5.1.x265.HEVC-Qman%5BUTR%5D/Scandal.S02E22.720p.Web-DL.x265.HEVC-Qman%5BUTR%5D.mp4",
+		playable:false
+	}];
+	var docFrag = document.createDocumentFragment();
+	var str = '';
+	var name = '';
+	var strArr = [];
+	for(var i = 0, length1 = urlsArr.length; i < length1; i++){
+		name = getfilename(urlsArr[i]['url']);
+		str = '';
+		str += '<div class="per-list">';
+		str +=   '<span class="name">' + name + '</span>';
+		if (urlsArr[i].playable) {
+			str +=   '<span class="play"' + 'data-id="' + i + '">播放</span>';
+		} else {
+			str +=   '<span class="ph hidden">哈哈</span>';
+		}
+		str +=   '<span class="download"' + 'data-id="' + i + '">下载</span>';
+		str += '</div>';
+		strArr.push(str);
+	}
+	var listEle = document.getElementById('list');
+	listEle.innerHTML = strArr.join('');
+	listEle.addEventListener('click', listener);
+	playVideo(0);
+	function listener(ev) {
+		var idx;
+		if (ev.target.classList.contains('play')) {
+			idx = +ev.target.dataset.id;
+			setActive(ev.target.parentElement);
+			playVideo(idx);
+		}
+		if (ev.target.classList.contains('download')) {
+			idx = +ev.target.dataset.id;
+			downloadFile(urlsArr[idx]['url']);
+		}
+	}
+	function setActive(el) {
+		var elesArr = [].slice.call(document.getElementsByClassName('per-list'));
+		for(var i = 0, length1 = elesArr.length; i < length1; i++){
+			elesArr[i].classList.remove('active');
+		}
+		el.classList.add('active');
+	}
+	function playVideo(idx) {
+		var pUrl;
+		pUrl = playUrl(urlsArr[idx]['url']);
+		jwp(pUrl);
+	}
+	function playUrl(url) {
+		var pUrl;
+		var arr = url.split('clouddn.com/');
+		pUrl = arr[0] + 'clouddn.com/job_' + arr[1];
+		return pUrl;
+	}
+	function getfilename(url) {
+		var arr = url.split('/');
+		return arr[arr.length - 1];
+	}
+	function jwp(url) {
+		jwplayer("video").setup({
+		  "file": url,
+		  "height": 720,
+		  "width": 1280,
+		  "autostart": true
+		});
+	}
+	</script>
+
+
+</body>
+</html>
