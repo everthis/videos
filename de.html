@@ -179,6 +179,7 @@
 	listEle.innerHTML = strArr.join('');
 	listEle.addEventListener('click', listener);
 	playVideo(0);
+	setActive(document.getElementsByClassName('per-list')[0]);
 	function listener(ev) {
 		var idx;
 		if (ev.target.classList.contains('play')) {
